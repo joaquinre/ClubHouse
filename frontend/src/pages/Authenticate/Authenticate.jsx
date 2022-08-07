@@ -9,7 +9,7 @@ const steps = {
     2: StepOtp,
 }
 
-const Login = () => {
+const Authenticate = () => {
     const [step, setStep] = useState(1)
     const Step = steps[step]
 
@@ -19,9 +19,9 @@ const Login = () => {
 
   return (
     <div>
-      <Step onNext={onNext}/>
+        <Step onNext={onNext}/>
     </div>
   )
 }
 
-export default Login
+export default Authenticate

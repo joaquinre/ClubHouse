@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from  './Home.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Card from '../../components/shared/Card/Card'
 import Button from '../../components/shared/Button/Button'
 
@@ -11,9 +11,9 @@ const Home = () => {
         marginLeft: '10px'
     }
 
-    const history = useNavigate()
+    const history = useHistory()
     function startRegister() {
-        history('/register')
+        history.push('/register')
     }
 
   return (
