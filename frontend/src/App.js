@@ -5,6 +5,7 @@ import Navigation from './components/shared/Navigation/Navigation';
 import Home from './pages/Home/Home';
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
+import Rooms from './pages/Rooms/Rooms';
 
 const isAuth = true
 const user = {
@@ -25,6 +26,9 @@ function App() {
         <SemiProtectedRoute path='/activate'>
           <Activate />
         </SemiProtectedRoute>
+        <ProtectedRoute>
+          <Rooms />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
@@ -69,6 +73,32 @@ const SemiProtectedRoute = ({ children, ...rest }) => {
             pathname: '/rooms',
             state: { from: location}
           }} />
+        )
+      )
+    }}>
+
+    </Route>
+  )
+}
+
+const ProtectedRoute = ({ children, ...rest }) => {
+  return (
+    <Route {...rest}
+    render={({ location }) => {
+      return (
+        !isAuth ? 
+        (
+          <Redirect to={{
+            pathname: '/',
+            state: { from: location}
+          }}/>
+        ) : isAuth && !user.activated ? (
+          <Redirect to={{
+            pathname: '/activate',
+            state: { from: location}
+          }} />
+        ) : (
+          children
         )
       )
     }}>
