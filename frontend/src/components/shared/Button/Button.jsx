@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './Button.module.css'
-const Button = ({ children, onClick }) => {
+const Button = ({ text, onClick }) => {
   return (
     <button onClick={onClick} className={styles.button}>
-        <span>{children}</span>
+        <span>{text}</span>
         <img 
             className={styles.arrow}
-            src="/images/arrow.png"
+            src="/images/arrow-forward.png"
             alt="arrow"
         />
     </button>
