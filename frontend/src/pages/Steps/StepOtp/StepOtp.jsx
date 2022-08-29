@@ -7,7 +7,11 @@ import styles from  './StepOtp.module.css'
 
 const StepOtp = ({ onNext }) => {
   const [otp, setOtp] = useState('')
-  function next() {}
+  async function submit() {
+    
+    // onNext()
+  }
+
   return (
     <>
       <div className={styles.cardWrapper}>
@@ -18,7 +22,7 @@ const StepOtp = ({ onNext }) => {
             />
           <div>
             <div className={styles.actionButtonWrap}>
-              <Button onClick={next} text='Next'/>
+              <Button onClick={submit} text='Next'/>
             </div>
           </div>
         </Card>
