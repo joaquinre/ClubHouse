@@ -2,7 +2,7 @@ const verifyOtp = require("../services/otp-service")
 const hashServices = require("../services/hash-services")
 const otpService = require("../services/otp-service")
 const userService = require('../services/user-services')
-const tokenService = require('../services/token')
+const tokenService = require('../services/token-services')
 const UserDto = require("./dtos/user-dto")
 
 class AuthController {
@@ -71,13 +71,21 @@ class AuthController {
                 activated: false,
         })
 
-        res.cookie('refreshtoken', refreshToken, {
+        await tokenService.storeRefreshToken(refreshToken, user._id)
+
+        res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true
         });
+
+        res.cookie('accessTtoken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        });
+
         const userDto = new UserDto(user)
 
-        res.json({ accessToken, user: userDto })
+        res.json({ user: userDto, auth: true })
     }
 }
 
