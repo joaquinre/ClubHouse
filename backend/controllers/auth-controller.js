@@ -3,7 +3,7 @@ const hashServices = require("../services/hash-services")
 const otpService = require("../services/otp-service")
 const userService = require('../services/user-services')
 const tokenService = require('../services/token-services')
-const UserDto = require("./dtos/user-dto")
+const UserDto = require("../dtos/user-dto")
 
 class AuthController {
     async sendOtp( req, res) {
@@ -78,7 +78,7 @@ class AuthController {
             httpOnly: true
         });
 
-        res.cookie('accessTtoken', accessToken, {
+        res.cookie('accessToken', accessToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true
         });

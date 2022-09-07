@@ -4,11 +4,12 @@ import Card from '../../../components/shared/Card/Card'
 import styles from "./StepAvatar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvatar } from '../../../store/activationSlice';
+import { activate } from '../../../http';
 
 
 const StepAvatar = ({ onNext }) => {
   const dispatch = useDispatch()
-  const {name} = useSelector((state) => state.activate)
+  const {name, avatar} = useSelector((state) => state.activate)
   const [image, setImage] = useState('/images/monkey-avatar.png')
   function captureImage(e) {
     const file = e.target.files[0]
@@ -20,12 +21,17 @@ const StepAvatar = ({ onNext }) => {
       dispatch(setAvatar(reader.result))
     }
   }
-  function submit(params) {
-    
+  async function submit() {
+    try {
+      const { data } = await activate({ name, avatar }) 
+      console.log(data);
+    } catch (error) {
+      console.log(error); 
+    }
   }
   return (
     <>
-      <Card title={`Okay, ${name}!`} icon='monkey-emoji'>
+      <Card title={`Okay, ${name}`} icon='monkey-emoji'>
           <p className={styles.subHeading}>How's this photo?</p>
             <div className={styles.avatarWrapper}>
               <img
