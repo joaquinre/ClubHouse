@@ -5,6 +5,7 @@ import styles from "./StepAvatar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvatar } from '../../../store/activationSlice';
 import { activate } from '../../../http';
+import { setAuth } from '../../../store/authSlice';
 
 
 const StepAvatar = ({ onNext }) => {
@@ -24,6 +25,9 @@ const StepAvatar = ({ onNext }) => {
   async function submit() {
     try {
       const { data } = await activate({ name, avatar }) 
+      if (data.auth) {
+        dispatch(setAuth(data))
+      }
       console.log(data);
     } catch (error) {
       console.log(error); 

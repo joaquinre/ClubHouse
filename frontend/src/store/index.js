@@ -6,6 +6,6 @@ import activate from "./activationSlice";
 export const store = configureStore({
     reducer: {
         auth,
-        activate
+        activate,
     }
 })

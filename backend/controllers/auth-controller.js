@@ -26,7 +26,7 @@ class AuthController {
             res.json({
                 hash: `${hash}.${expires}`,
                 phone,
-                otp
+                otp,
             })
         } catch (error) {
             console.log(error)        
