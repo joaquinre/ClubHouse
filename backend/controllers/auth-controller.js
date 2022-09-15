@@ -94,15 +94,17 @@ class AuthController {
         // check if token is valid 
         let userData
         try {
-            userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie)
+            userData = await tokenService.verifyRefreshToken(
+                refreshTokenFromCookie
+            )
         } catch (error) {
             return res.status(401).json({ message: 'Invalid Token'})
         }
         // check if token is in db
         try {
             const token = await tokenService.findRefreshToken(
-                userData.userId, 
-                refreshTokenFromCookie
+                userData._id, 
+                refreshTokenFromCookie,
             )
             if (!token) {
                 return res.status(401).json({ message: 'Invalid Token 2'})
@@ -122,7 +124,7 @@ class AuthController {
 
         // upadate refresh token
         try {
-            await tokenService.updateRefreshToken(userId, refreshToken)
+            await tokenService.updateRefreshToken(userData._id, refreshToken)
         } catch (error) {
             return res.status(500).json({ message: 'Internal Error'})
         }
@@ -136,7 +138,7 @@ class AuthController {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true
         });
-        
+
         // response
         const userDto = new UserDto(user)
         res.json({ user: userDto, auth: true })

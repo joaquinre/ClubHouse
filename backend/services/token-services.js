@@ -42,7 +42,7 @@ class TokenService {
 
     async updateRefreshToken(userId, refreshToken) {
         return await refreshModel.updateOne(
-            { userId: userId}, 
+            { userId: userId }, 
             { token: refreshToken}
         )
     }
