@@ -30,8 +30,8 @@ api.interceptors.response.use(
         const originalRequest = error.config
         if (
             error.response.status === 401 && 
-            error.config && 
-            !error.config._isRetry
+            originalRequest && 
+            !originalRequest._isRetry
         ) {
             originalRequest.isRetry = true
             try {
@@ -48,6 +48,7 @@ api.interceptors.response.use(
             }
         }
         throw error
-    })
+    }
+)
 
 export default api
