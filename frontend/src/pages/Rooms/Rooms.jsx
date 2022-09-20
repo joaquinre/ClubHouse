@@ -1,47 +1,59 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import { RoomCard } from "../../components/RoomCard/RoomCard";
+import { getAllRooms } from "../../http";
 import styles from  './Rooms.module.css'
 
-const rooms = [
-    {
-        id: 1,
-        topic: 'Which Food is the best?',
-        speakers: [
-            {
-                id: 1,
-                name:   'John Doe',
-                avatar: '/images/monkey-avatar.png',
-            }, 
-            {
-                id: 2,
-                name:   'Jana Doe',
-                avatar: '/images/monkey-avatar.png',
-            },
-        ],
-        totalPeople: 40,
-    },
-    {
-        id: 2,
-        topic: 'Which Food is the best?',
-        speakers: [
-            {
-                id: 1,
-                name:   'John Doe',
-                avatar: '/images/monkey-avatar.png',
-            }, 
-            {
-                id: 2,
-                name:   'Jana Doe',
-                avatar: '/images/monkey-avatar.png',
-            },
-        ],
-        totalPeople: 40,
-    }
-]
+// const rooms = [
+//     {
+//         id: 1,
+//         topic: 'Which Food is the best?',
+//         speakers: [
+//             {
+//                 id: 1,
+//                 name:   'John Doe',
+//                 avatar: '/images/monkey-avatar.png',
+//             }, 
+//             {
+//                 id: 2,
+//                 name:   'Jana Doe',
+//                 avatar: '/images/monkey-avatar.png',
+//             },
+//         ],
+//         totalPeople: 40,
+//     },
+//     {
+//         id: 2,
+//         topic: 'Which Food is the best?',
+//         speakers: [
+//             {
+//                 id: 1,
+//                 name:   'John Doe',
+//                 avatar: '/images/monkey-avatar.png',
+//             }, 
+//             {
+//                 id: 2,
+//                 name:   'Jana Doe',
+//                 avatar: '/images/monkey-avatar.png',
+//             },
+//         ],
+//         totalPeople: 40,
+//     }
+// ]
 
 const Rooms = () => {
     const [ showModal, setShowModal] = useState(false)
+    const [rooms, setRooms] = useState([])
+
+    useEffect(() => {
+      const fetchRooms = async () => {
+        const { data } = await getAllRooms()
+        setRooms(data)
+      }
+      fetchRooms()
+    }, [])
+    
     function openModal() {
         setShowModal(true)
         
