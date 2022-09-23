@@ -70,7 +70,10 @@ const Rooms = () => {
                 </div>
                 <div className={styles.right}>
                     <button onClick={openModal} className={styles.startRoomButton}>
-                        <img src="/images/add-room-icon.png" alt="add-room" />
+                        <img
+                            src="/images/add-room-icon.png" 
+                            alt="add-room"
+                        />
                         <span>Start a room</span>
                     </button>
                 </div>
